@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
-import org.junit.jupiter.api.AfterEach;
+
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
+;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -87,7 +87,7 @@ public class SeleniumTest {
         for (String c : elementos ) {
             elem.add(c);
         }
-        ;
+
 
         for(int elemento=0;elemento<elem.size();elemento++){
             var = isElementPresent(By.id(elementos[elemento]));

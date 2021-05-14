@@ -28,21 +28,23 @@ public class Application {
     public CommandLineRunner run(RestTemplate restTemplate) {
 
         int tqs = 0;
+        String [] nomes = {"shanghai","paris","london","lisbon","berlin","tokyo","munchen","denver","helsinki","stockholm","moscow","madrid","beijing","porto","hongkong","barcelona","manchester","braga","liverpool","roma","lille","bern","linz","new-york"};
 
-        ArrayList<String> cityNames = new ArrayList<>();
-        cityNames.add("Shanghai");cityNames.add("Paris");cityNames.add("London");cityNames.add("Lisbon");
-        cityNames.add("Berlin");cityNames.add("Tokyo");cityNames.add("Munchen");cityNames.add("Denver");
-        cityNames.add("Helsinki");cityNames.add("Stockholm");cityNames.add("Moscow");cityNames.add("Madrid");
-        cityNames.add("Beijing"); cityNames.add("Porto");cityNames.add("HongKong");cityNames.add("Barcelona");
-        cityNames.add("Manchester"); cityNames.add("Braga");cityNames.add("Liverpool");cityNames.add("Roma");
-        cityNames.add("Lille");cityNames.add("Bern"); cityNames.add("Linz"); cityNames.add("New-York");
+
+
+        ArrayList<String> nomes_cidades = new ArrayList<>();
+
+        for (String c : nomes) {
+            nomes_cidades.add(c);
+        }
+
 
         ArrayList<Station> sta = new ArrayList<>();
 
         //Guardar objectos station num arrayList para depois guarda-las na Cache
         Station st;
-        while (tqs<cityNames.size()){
-            st = new Station(tqs,cityNames.get(tqs));
+        while (tqs<nomes_cidades.size()){
+            st = new Station(tqs,nomes_cidades.get(tqs));
             sta.add(st);
             tqs+=1;
         }

@@ -27,7 +27,7 @@ public class StationServiceTest {
     public void setup() throws Exception {
         Station st = new Station(1, "Aveiro");
         Mockito.when(cache.getStationByID(st.getID())).thenReturn(st);
-        Mockito.when(cache.getStationByID(50)).thenReturn(null);//Wrong ID
+        Mockito.when(cache.getStationByID(1000)).thenReturn(null);//Wrong ID
     }
 
 

@@ -26,18 +26,19 @@ public class AirQualityServiceTest {
 
     ArrayList<String> cidadesdisponiveis = new ArrayList<>();
     AirQuality airquality;
-    int miss,hit;
+    int miss;
+    int hit;
 
     @BeforeEach
     public void setup() throws Exception {
         //setup
 
         // lista de cidades disponiveis
-        String[] cidades = {"Aveiro","Madrid","Porto","Lille","Barcelona"};
+        String[] cidades = {"Aveiro","Madrid","Porto","Lille","Barcelona","Roma"};
         for (String city : cidades)
             cidadesdisponiveis.add(city);
 
-        //stats
+
         miss = 5;
         hit = 10;
 
@@ -78,8 +79,8 @@ public class AirQualityServiceTest {
 
     @Test
     public void cidade_valida(){ // valiadde de dados registados
-        for(int i=0;i<cidadesdisponiveis.size();i++){
-            assertThat(cache.isValid(cidadesdisponiveis.get(i))).isEqualTo(true);
+        for(int cidade=0;cidade<cidade;cidade++){
+            assertThat(cache.isValid(cidadesdisponiveis.get(cidade))).isEqualTo(true);
         }
     }
 
@@ -87,14 +88,14 @@ public class AirQualityServiceTest {
     @Test
     public void cidade_invalida(){ // verifica que Espinho nao cidade valida
 
-        assertThat(cache.isValid("Espinho")).isEqualTo(false);
+        assertThat(cache.isValid("Alentejo")).isEqualTo(false);
     }
 
 
     @Test
     public void cidade_valida_retornar_valores(){ // retornada uma cidade disponivel , os dados dessa mm cidade sao os esorados
-        for(int i=0;i<cidadesdisponiveis.size();i++){
-            assertThat(cache.getAirQualityByCity(cidadesdisponiveis.get(i))).isEqualTo(airquality);
+        for(int cidade=0;cidade<cidadesdisponiveis.size();cidade++){
+            assertThat(cache.getAirQualityByCity(cidadesdisponiveis.get(cidade))).isEqualTo(airquality);
         }
     }
 
@@ -102,16 +103,16 @@ public class AirQualityServiceTest {
     @Test
     public void cidade_invalida_null(){ // parecido ao teste anterior , só que a cidade nao esta disponivel logo retorna null
 
-        assertThat(cache.getAirQualityByCity("Vigo")).isEqualTo(null);
+        assertThat(cache.getAirQualityByCity("Brasilia")).isEqualTo(null);
     }
 
 
     @Test
     public void cidades_registadas(){ //verifica se asidades estao registadas na cache
-        for(int i=0;i<cidadesdisponiveis.size();i++){
-            assertThat(cache.getCitiesAvailable().contains(cidadesdisponiveis.get(i))).isEqualTo(true);
+        for(int cidade=0;cidade<cidadesdisponiveis.size();cidade++){
+            assertThat(cache.getCitiesAvailable().contains(cidadesdisponiveis.get(cidade))).isEqualTo(true);
         }
-        assertThat(cache.getCitiesAvailable().size()).isEqualTo(5);
+        assertThat(cache.getCitiesAvailable().size()).isEqualTo(6);
     }
 
 

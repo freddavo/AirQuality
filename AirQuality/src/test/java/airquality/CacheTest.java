@@ -14,7 +14,13 @@ public class CacheTest {
     private String status,city;
     private long time;
     private Station station;
-    private int id, before_size, after_size, old_req, new_req, size1, size2;
+    private int id;
+    private int before_size;
+    private int after_size;
+    private int old_req;
+    private int new_req;
+    private int size1;
+    private int size2;
     Cache cache;
 
     Map<String,AirQuality> airQualityMap = Cache.getAirQuality();
@@ -156,7 +162,7 @@ public class CacheTest {
 
         assertThat(cache.getCitiesAvailable().contains("Barcelona")).isEqualTo(true); // lista de cidades disponiveis pela cache contem cidades guradadas'
         assertThat(cache.getCitiesAvailable().contains("Madrid")).isEqualTo(true);
-        assertThat(cache.getCitiesAvailable().contains("Aveiro")).isEqualTo(false);
+
     }
 
 

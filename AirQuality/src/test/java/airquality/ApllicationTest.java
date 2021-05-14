@@ -10,7 +10,7 @@ class ApllicationTest {
     @Test
     void contextLoads() {
 
-        assertThat(true).isEqualTo(true);
+        assertThat(true).isTrue();
     }
 
 }

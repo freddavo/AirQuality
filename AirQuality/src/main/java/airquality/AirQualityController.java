@@ -61,6 +61,7 @@ public class AirQualityController {
     //lista estações que estao em cache.
     @GetMapping("/stations")
     public Map<Integer,Station> getStations(){
+
         return serviceStation.returnStation();
     }
 

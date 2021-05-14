@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -40,8 +43,8 @@ public class SeleniumTest {
 
 
     @Test
-    public void testPossibleCities() throws Exception { // se é possível consultar os dados para todas as cidade escolhendo cada cidade disponível e carregando no botão ok ao lado direito)
-        boolean var = false;
+    public void testPossibleCities() throws Exception { // se é possível consultar os dados para todas as cidade escolhendo cada cidade disponível e carregando no botão ok )
+        boolean allok = false;
         driver.get("http://localhost:8080");
         List<String> nomecidade = new ArrayList<>();
         String [] cidades ={"Shanghai", "Paris", "London", "Lisbon", "Berlin","Helsinki", "Stockholm", "Moscow","Madrid","Beijing","Porto","HongKong","Barcelona","Manchester","Braga","Liverpool","Roma","Lille","Bern","Linz","New-York"};
@@ -56,8 +59,8 @@ public class SeleniumTest {
             driver.findElement(By.id("ok")).click();
         }
         //Se passou o for anterior significa que está tudo OK
-        var = true;
-        assertThat(var).isEqualTo(true);
+        allok = true;
+        assertThat(allok).isEqualTo(true);
     }
 
 
@@ -70,6 +73,28 @@ public class SeleniumTest {
             return false;
         }
     }
+
+    @Test
+    public void testElementPresence() {
+        int count_false = 0;
+        boolean var;
+        //Todos os elementos da página
+        String [] elementos ={"city", "ok", "status", "aqi", "no2","p","o3","pm25","t","so2","w","h","pm10","co"};
+
+
+        ArrayList<String> elem = new ArrayList<>();
+
+        for (String c : elementos ) {
+            elem.add(c);
+        }
+        ;
+
+        for(int elemento=0;elemento<elem.size();elemento++){
+            var = isElementPresent(By.id(elementos[elemento]));
+            if (!var) { count_false++; }
+        }
+        assertThat(count_false==0).isEqualTo(true);
+    };
 
 
 }

@@ -1,0 +1,150 @@
+<html>
+<head>
+    <title>Air Quality</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<script type = "text/javascript">
+    function start() {
+        const drop = document.getElementById('city');
+        const json = fetch("http://localhost:8080/api/stations")
+            .then((resp) => resp.json())
+            .then(function (data) {
+                for (id in data) {
+                    const aux = data[id];
+                    const city = aux["city"];
+                    const option = document.createElement('option');
+                    option.innerHTML = city;
+                    option.value = id;
+                    drop.appendChild(option);
+                }
+                ;
+            })
+    }
+    function clear() {
+        const html_elems = ["status","aqi","no2","p","o3","pm25","t","so2","w","h","pm10","co","wg","dew","r","wd"];
+        let i;
+        for (i = 0; i < html_elems.length; i++) {
+            document.getElementById(html_elems[i]).textContent = "";
+        }
+    }
+
+    function callAPI() {
+        clear();
+        const citySelect = document.getElementById("city");
+        //console.log(citySelect);
+        const city = citySelect.options[citySelect.selectedIndex].text;
+        //console.log(city.valueOf());
+        var json = fetch("http://localhost:8080/api/air/"+ city.toLowerCase())
+            .then((resp) => resp.json())
+            .then(function (info) {
+                document.getElementById("status").textContent = info["status"];
+                document.getElementById("aqi").textContent = info["data"]["aqi"];
+                const data_iaqi = info["data"]["iaqi"];
+                const keys = Object.keys(data_iaqi);
+                const html_elems = ["no2","p","o3","pm25","t","so2","w","h","pm10","co","wg","dew","r","wd"];
+                let i;
+                let j;
+                for (i = 0; i < keys.length; i++) {
+                    for(j =0; j < html_elems.length; j++) {
+                        if (keys[i]==html_elems[j]) {
+                            document.getElementById(html_elems[j]).textContent = data_iaqi[keys[i]]["v"];
+                        }
+                    }
+                }
+                for (i = 0; i < html_elems.length; i++) {
+                    if (document.getElementById(html_elems[i]).textContent == ""){
+                        document.getElementById(html_elems[i]).textContent = "Not available.";
+                    }
+                }
+            })
+    }
+
+
+</script>
+
+
+<body onload="start()">
+<div>
+    <h1>Air Quality </h1>
+</div>
+<div>
+    <b>City: </b>
+    <select id="city"></select>
+    <button id="ok" onclick="callAPI()">OK</button>
+    <br><br>
+    <div>
+        <b>Status: </b>
+        <span id="status"></span>
+    </div><br>
+    <div>
+        <b>Air Quality Index : </b>
+        <span id="aqi"></span>
+    </div><br>
+    <div>
+        <b>NO2 (Nitrogen Dioxide): </b>
+        <span id="no2"></span>
+    </div><br>
+    <div>
+        <b>Atmospheric Pressure : </b>
+        <span id="p"></span>
+    </div><br>
+    <div>
+        <b>O3 (Ozone) : </b>
+        <span id="o3"></span>
+    </div><br>
+    <div>
+        <b>PM 2.5 : </b>
+        <span id="pm25"></span>
+    </div><br>
+
+    <div>
+        <b>Temperature : </b>
+        <span id="t"></span>
+    </div><br>
+    <div>
+        <b>SO2 (Sulphur Dioxide) : </b>
+        <span id="so2"></span>
+    </div><br>
+    <div>
+        <b>Wind (Beaufort scale): </b>
+        <span id="w"></span>
+    </div><br>
+
+    <div>
+        <b>Relative Humidity: </b>
+        <span id="h"></span>
+    </div><br>
+    <div>
+        <b>PM 10 : </b>
+        <span id="pm10"></span>
+    </div><br>
+    <div>
+        <b>CO (Carbon Monoxide) : </b>
+        <span id="co"></span>
+    </div><br>
+    <div>
+        <b>WG : </b>
+        <span id="wg"></span>
+    </div><br>
+    <div>
+        <b>Dew : </b>
+        <span id="dew"></span>
+    </div><br>
+    <div>
+        <b>Rain (Precipitation): </b>
+        <span id="r"></span>
+    </div><br>
+    <div>
+        <b>WD: </b>
+        <span id="wd"></span>
+    </div><br>
+
+
+
+
+</div>
+</body>
+
+</html>

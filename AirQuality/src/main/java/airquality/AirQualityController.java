@@ -23,9 +23,9 @@ public class AirQualityController {
     private String token = "2a4eb591ee0e1ece4c7259035d002d7892bc239e";
 
     /** Dada uma cidade é retornado o objecto "AirQuality" correspondentes com os valores registados
-     * Verifica se o valor já se encontra em Cache. No caso de não se encontrar é feito um pedido à API (refreshCity)
+
      * Verifica se o valor que se encontra em cache é válido (não foi registado há mais de mais minutos)
-     * Se o valor já tiver sido registado há mais de 10 minutos é feita uma chamada à API (refreshCity)
+
      * Nos dois casos acima é incrementado o número de tentativas sem sucesso (miss)
      * Para o último caso possível,
      * é incrementado o número de sucessos e retornado o objecto AirQuality de uma determinada cidade
@@ -46,10 +46,10 @@ public class AirQualityController {
     }
 
 
-    /**
-     * Método para fazer chamadas à API para uma determinada cidade
-     */
+
     private void refreshCity(String city){ //Guardar na cache pelo que não é contabilizado como sendo um request
+        // Método para fazer chamadas à API para uma determinada cidade
+        //Se o valor já tiver sido registado há mais de 10 minutos é feita uma chamada à API
         AirQuality airQuality = restTemplate.getForObject("https://api.waqi.info/feed/"+city+"/?token="+token,AirQuality.class);
         serviceAir.guardarAirQuality(city,airQuality);
     }

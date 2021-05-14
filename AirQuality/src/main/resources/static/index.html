@@ -1,4 +1,3 @@
-<html>
 <head>
     <title>Air Quality</title>
     <meta charset="UTF-8">
@@ -22,20 +21,21 @@
                 ;
             })
     }
+
     function clear() {
-        const html_elems = ["status","aqi","no2","p","o3","pm25","t","so2","w","h","pm10","co","wg","dew","r","wd"];
+        const html_elems = ["status","aqi","no2","p","o3","pm25","t","so2","w","h","pm10","co"];
         let i;
         for (i = 0; i < html_elems.length; i++) {
             document.getElementById(html_elems[i]).textContent = "";
         }
     }
 
-    function callAPI() {
+    function API() {
         clear();
         const citySelect = document.getElementById("city");
-        //console.log(citySelect);
+
         const city = citySelect.options[citySelect.selectedIndex].text;
-        //console.log(city.valueOf());
+
         var json = fetch("http://localhost:8080/api/air/"+ city.toLowerCase())
             .then((resp) => resp.json())
             .then(function (info) {
@@ -43,7 +43,7 @@
                 document.getElementById("aqi").textContent = info["data"]["aqi"];
                 const data_iaqi = info["data"]["iaqi"];
                 const keys = Object.keys(data_iaqi);
-                const html_elems = ["no2","p","o3","pm25","t","so2","w","h","pm10","co","wg","dew","r","wd"];
+                const html_elems = ["no2","p","o3","pm25","t","so2","w","h","pm10","co"];
                 let i;
                 let j;
                 for (i = 0; i < keys.length; i++) {
@@ -55,7 +55,7 @@
                 }
                 for (i = 0; i < html_elems.length; i++) {
                     if (document.getElementById(html_elems[i]).textContent == ""){
-                        document.getElementById(html_elems[i]).textContent = "Not available.";
+                        document.getElementById(html_elems[i]).textContent = "Informação nao disponível";
                     }
                 }
             })
@@ -72,7 +72,7 @@
 <div>
     <b>City: </b>
     <select id="city"></select>
-    <button id="ok" onclick="callAPI()">OK</button>
+    <button id="ok" onclick="API()">Obter informação</button>
     <br><br>
     <div>
         <b>Status: </b>
@@ -124,22 +124,7 @@
         <b>CO (Carbon Monoxide) : </b>
         <span id="co"></span>
     </div><br>
-    <div>
-        <b>WG : </b>
-        <span id="wg"></span>
-    </div><br>
-    <div>
-        <b>Dew : </b>
-        <span id="dew"></span>
-    </div><br>
-    <div>
-        <b>Rain (Precipitation): </b>
-        <span id="r"></span>
-    </div><br>
-    <div>
-        <b>WD: </b>
-        <span id="wd"></span>
-    </div><br>
+
 
 
 

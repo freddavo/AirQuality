@@ -2,13 +2,15 @@ package airquality;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
 
 import org.junit.jupiter.api.Assertions;
-;
 
-import org.openqa.selenium.*;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import static org.assertj.core.api.Assertions.assertThat;

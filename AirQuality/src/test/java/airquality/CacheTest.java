@@ -27,7 +27,7 @@ public class CacheTest {
     Map<Integer,Station> stationMap = Cache.getStations();
 
     @Before
-    public void prepare() {
+    public void setup() {
         cache = new Cache();
         HashMap<String, HashMap<String,Float>> setup = new HashMap<>();
 
